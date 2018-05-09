@@ -2,6 +2,9 @@
 
 echo "***** INSTALL KUBERNETES *****"
 
+echo "INSTALLING VIRTUALBOX"
+sudo apt-get install virtualbox
+
 echo "INSTALLING KUBECTL"
 sudo apt-get update && sudo apt-get install -y apt-transport-https
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
