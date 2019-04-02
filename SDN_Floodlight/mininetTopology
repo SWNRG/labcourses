@@ -1,0 +1,73 @@
+#!/usr/bin/python
+"""
+This topology is used to test the compatibility of different Docker images.
+The images to be tested can be found in 'examples/example-containers'.
+They are build with './build.sh'
+"""
+from mininet.net import Mininet
+from mininet.node import RemoteController, Docker
+from mininet.cli import CLI
+from mininet.link import TCLink
+from mininet.log import info, setLogLevel
+from mininet.node import OVSKernelSwitch
+from mininet.util import irange
+from mininet.topo import Topo
+from mininet.node import CPULimitedHost, Host, Node
+
+
+setLogLevel( 'info' )
+
+REMOTE_CONTROLLER_IP="127.0.0.1"
+
+net = Mininet(controller=RemoteController,)
+
+info('*** Adding controller\n')
+net.addController('c0',controller=RemoteController,
+                      ip=REMOTE_CONTROLLER_IP,
+                      port=6653)
+
+info('*** Adding switches\n')
+s1 = net.addSwitch('s1',protocols='OpenFlow13')
+s2 = net.addSwitch('s2',protocols='OpenFlow13')
+s3 = net.addSwitch('s3',protocols='OpenFlow13')
+
+info('*** Adding Nat Host\n')
+net.addNAT().configDefault()
+
+info('*** Adding docker containers\n')
+h1 = net.addHost('h1')
+h2 = net.addHost('h2')
+h3 = net.addHost('h3')
+h4 = net.addHost('h4')
+
+info('*** Creating links\n')
+net.addLink(h1, s2, cls=TCLink, delay='0ms', bw=20)
+net.addLink(h2, s2, cls=TCLink, delay='0ms', bw=20)
+net.addLink(h3, s3, cls=TCLink, delay='0ms', bw=20)
+net.addLink(h4, s3, cls=TCLink, delay='0ms', bw=20)
+net.addLink(s1, s2, cls=TCLink, delay='0ms', bw=40)
+net.addLink(s1, s3, cls=TCLink, delay='0ms', bw=40)
+
+
+info('*** Starting network\n')
+net.start()
+
+info('*** Starting VLC steaming servers\n')
+#net.get('h1').cmd('./vlcVideoServer')
+#net.get('h2').cmd('./vlcVideoServer')
+#net.get('h3').cmd('./vlcVideoServer')
+#net.get('h4').cmd('./vlcVideoServer')
+
+info('*** Testing connectivity\n')
+net.ping([h2, h1])
+net.ping([h3, h1])
+net.ping([h4, h1])
+
+info('*** Running CLI\n')
+CLI(net)
+
+info('*** Stopping network')
+net.stop()
+
+
+
