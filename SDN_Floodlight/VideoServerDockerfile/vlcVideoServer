@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cvlc -vvv "SampleVideo_5mb.mp4" :sout="#http{mux=ffmpeg{mux=flv},dst=:8080/stream}" --loop
