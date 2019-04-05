@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#----------ENABLE FLOODLIGHT STATISTICS--------------
+
+curl -X POST 127.0.0.1:8080/wm/statistics/config/enable/json
+
+#---------ENABLE CURL SCRIPTS------------
+
+curl http://localhost:8080/quantum/v1.0/vips/ | python -mjson.tool
+curl http://localhost:8080/quantum/v1.0/pools/ | python -mjson.tool
+curl http://localhost:8080/quantum/v1.0/members/ | python -mjson.tool
+
+
+#------------ ENABLE SWITCH METRICS --------------
+#curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:01/1/json | python -mjson.tool
+#curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:01/2/json | python -mjson.tool
+#curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:01/3/json | python -mjson.tool
+
+curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:02/1/json | python -mjson.tool
+curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:02/2/json | python -mjson.tool
+#curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:02/3/json | python -mjson.tool
+
+curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:03/1/json | python -mjson.tool
+curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:03/2/json | python -mjson.tool
+#curl 127.0.0.1:8080/wm/statistics/bandwidth/00:00:00:00:00:00:00:03/3/json | python -mjson.tool
