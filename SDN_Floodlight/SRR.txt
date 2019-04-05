@@ -1,6 +1,0 @@
-curl -X POST -d '{"id":"2","name":"vip2","protocol":"tcp","address":"10.0.0.200","port":"8080"}' http://localhost:8080/quantum/v1.0/vips/
-curl -X POST -d '{"id":"2","name":"pool2","protocol":"tcp","vip_id":"2"}' http://localhost:8080/quantum/v1.0/pools/
-curl -X POST -d '{"id":"21","address":"10.0.0.2","port":"8080","pool_id":"2"}' http://localhost:8080/quantum/v1.0/members/
-curl -X POST -d '{"id":"22","address":"10.0.0.3","port":"8080","pool_id":"2"}' http://localhost:8080/quantum/v1.0/members/
-curl -X POST -d '{"id":"23","address":"10.0.0.4","port":"8080","pool_id":"2"}' http://localhost:8080/quantum/v1.0/members/
-curl -X POST -d '{"id":"24","address":"10.0.0.5","port":"8080","pool_id":"2"}' http://localhost:8080/quantum/v1.0/members/
